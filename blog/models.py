@@ -17,7 +17,7 @@ class Post(models.Model):
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
-    like_users = models.ManyToManyField(User, related_name='like_posts', default=None)
+    like_users = models.ManyToManyField(User, related_name='like_posts', blank=True, null=True)
 
     def publish(self):
         self.published_date = timezone.now()
@@ -27,3 +27,9 @@ class Post(models.Model):
         return self.title
 
 
+class Comment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    text = models.TextField(max_length=1000)
+    created_date = models.DateTimeField(default=timezone.now)
+    like_users = models.ManyToManyField(User, related_name='like_comments', blank=True, null=True)

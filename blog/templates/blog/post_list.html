@@ -3,15 +3,18 @@
 {% block content %}
     {% for post in posts %}
         <article class="post">
-            <time class="post-info">
-                {{ post.published_date }}
-            </time>
             <p class="post-info">
-                {{ post.author }}
-            </p>
+                작성자: {{ post.author }}
+           </p>
+            {% if post.published_date %}
+                <time class="post-info">
+                    {{ post.published_date }} /
+                </time>
+            {% endif %}
             <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
             <p>{{ post.text|linebreaksbr }}</p>
-            <div>   
+
+            <div>
                 <form action="{% url 'likes' pk=post.pk %}" method="POST" class="post-footer" style="display: inline-block;">
                 {% csrf_token %}
                 {% if user in post.like_users.all %}
@@ -24,6 +27,8 @@
                 </form>
                 <p>
                     Likes: {{ post.like_users.all|length }}
+                    Comments: {{ post.comments.all|length }}
+
                     {% if post.like_users.all|length > 0 %}
                         / like users: 
                         {% for i in post.like_users.all %}
