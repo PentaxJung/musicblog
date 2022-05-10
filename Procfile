@@ -1,0 +1,1 @@
+web: gunicorn dj-jjk-gallery.wsgi --log-file -

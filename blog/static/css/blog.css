@@ -1,0 +1,122 @@
+::-webkit-scrollbar {
+    display: none;
+}
+
+.page-header {
+    background-color: #FCA205;
+    margin-top: 0;
+    margin-bottom: 40px;
+    padding: 20px 20px 20px 40px;
+}
+
+.page-header h1,
+.page-header h1 a,
+.page-header h1 a:visited,
+.page-header h1 a:active {
+    float: left;
+    color: #ffffff;
+    font-size: 48px;
+    text-decoration: none;
+}
+
+h1, 
+h2, 
+h3, 
+h4 {
+    font-family: 'Lobster', cursive;
+}
+
+.heading {
+    display: table;
+}
+
+.top-menu, 
+.top-menu:hover, 
+.top-menu:visited {
+    display: inline-block;
+    float: right;
+    margin-left: 5px;
+    color: #ffffff;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.mybtns {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.greetings {
+    margin-bottom: 0;
+}
+
+.mybtn {
+    float: right;
+    line-height: 1.5;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    border-color: #FFFFFF;
+    background-color: transparent;
+    padding: 0.375rem 0.75rem;
+    text-align: center;
+    font-size: 1rem;
+    color: #FFFFFF;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.mybtn:hover {
+    border-color: transparent;
+    background-color: #FFFFFF;
+    color: #FCA205;
+}
+
+.post {
+    margin-bottom: 70px;
+}
+
+.post h2 a, 
+.post h2 a:visited {
+    color: #000000;
+    text-decoration: none;
+}
+
+.post-info {
+    float: right;
+    color: #828282;
+    margin-left: 5px;
+}
+
+.post-footer {
+    height: 100%;    
+}
+
+.btn-like {
+    float: left;
+}
+
+.post-form textarea,
+.post-form input {
+    width: 100%;
+}
+
+.post-form > .mybtn {
+    text-decoration: none;
+}
+
+.btn-secondary,
+.btn-secondary:visited {
+    color: #FCA205;
+    background: none;
+    border-color: #FCA205;
+}
+
+.btn-secondary:hover {
+    color: #FFFFFF;
+    background-color: #FCA205;
+    border-color: #FFFFFF;
+}
+
+.btn-edit {
+    float: right;
+    margin-left: 5px;
+}

@@ -1,0 +1,38 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% for post in posts %}
+        <article class="post">
+            <time class="post-info">
+                {{ post.published_date }}
+            </time>
+            <p class="post-info">
+                {{ post.author }}
+            </p>
+            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+            <p>{{ post.text|linebreaksbr }}</p>
+            <div>   
+                <form action="{% url 'likes' pk=post.pk %}" method="POST" class="post-footer" style="display: inline-block;">
+                {% csrf_token %}
+                {% if user in post.like_users.all %}
+                    <button class="mybtn btn-secondary btn-like">
+                        Unlike
+                    </button>
+                {% else %}
+                    <button class="mybtn btn-secondary btn-like">Like</button>
+                {% endif %}
+                </form>
+                <p>
+                    Likes: {{ post.like_users.all|length }}
+                    {% if post.like_users.all|length > 0 %}
+                        / like users: 
+                        {% for i in post.like_users.all %}
+                            {{ i.username }}
+                        {% endfor %}
+                    {% endif %}
+                </p>
+            </div>
+        </article>
+
+    {% endfor %}
+{% endblock %}
