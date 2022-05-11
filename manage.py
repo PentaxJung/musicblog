@@ -5,7 +5,7 @@ import sys
 
 
 def main():
-    print('https://dj-jjk-gallery-rcglw.run.goorm.io')
+    print('https://musicblog-git-aujhz.run.goorm.io')
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'musicblog.settings')
     try:
         from django.core.management import execute_from_command_line

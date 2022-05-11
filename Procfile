@@ -1,1 +1,1 @@
-web: gunicorn dj-jjk-gallery.wsgi --log-file -
+web: gunicorn musicblog-jsc.wsgi --log-file -
