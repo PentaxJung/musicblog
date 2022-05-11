@@ -49,10 +49,11 @@
             </p>
         </div>
         <div>
-            Comments: {{ post.comments.all|length }}
+            Comments: {{ post.comments.all|length }}<br>
             {% for comment in comments %}
-                {{ comment.author }}<br>
+                {{ comment.author }}
                 {{ comment.text }}
+                {{ comment.created_date }}<br>
             {% endfor %}
             <form method="POST" class="post_footer" style="display: inline-block;">
                 {% csrf_token %}
