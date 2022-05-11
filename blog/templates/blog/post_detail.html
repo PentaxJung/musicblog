@@ -27,39 +27,38 @@
 
         <h2>{{ post.title }}</h2>
         <p>{{ post.text|linebreaksbr }}</p>
-            <div>
-                <form action="{% url 'likes' pk=post.pk %}" method="POST" class="post-footer" style="display: inline-block;">
-                {% csrf_token %}
-                {% if user in post.like_users.all %}
-                    <button class="mybtn btn-secondary btn-like">
-                        Unlike
-                    </button>
-                {% else %}
-                    <button class="mybtn btn-secondary btn-like">Like</button>
+        <div>
+            <form action="{% url 'likes' pk=post.pk %}" method="POST" class="post-footer" style="display: inline-block;">
+            {% csrf_token %}
+            {% if user in post.like_users.all %}
+                <button class="mybtn btn-secondary btn-like">
+                    Unlike
+                </button>
+            {% else %}
+                <button class="mybtn btn-secondary btn-like">Like</button>
+            {% endif %}
+            </form>
+            <p>
+                Likes: {{ post.like_users.all|length }}
+                {% if post.like_users.all|length > 0 %}
+                    / like users:
+                    {% for like_user in post.like_users.all %}
+                        {{ like_user.username }}
+                    {% endfor %}
                 {% endif %}
-                </form>
-                <p>
-                    Likes: {{ post.like_users.all|length }}
-                    {% if post.like_users.all|length > 0 %}
-                        / like users:
-                        {% for like_user in post.like_users.all %}
-                            {{ like_user.username }}
-                        {% endfor %}
-                    {% endif %}
-                </p>
-            </div>
-            <div>
-                Comments: {{ post.comments.all|length }}
-                <form method="POST" class="post_footer" style="display: inline-block;">
-                    {% csrf_token %}
-                    {{ comment_form.as_p }}
-                    <button type="submit" class="mybtn btn-secondary btn-like">Comment</button>
-                </form>
-                {% for comment in comments %}
-                    {{ comment.author }}</br>
-                    {{ comment.text }}
-                {% endfor %}
-
-            </div>
+            </p>
+        </div>
+        <div>
+            Comments: {{ post.comments.all|length }}
+            {% for comment in comments %}
+                {{ comment.author }}<br>
+                {{ comment.text }}
+            {% endfor %}
+            <form method="POST" class="post_footer" style="display: inline-block;">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit" class="mybtn btn-secondary btn-like">Comment</button>
+            </form>
+        </div>
     </article>
 {% endblock %}
