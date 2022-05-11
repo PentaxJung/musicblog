@@ -8,5 +8,6 @@ Lib
 musicblog/.env
 musicblog/local_settings.py
 Scripts
+db.sqlite3
 __pychache__
 pyvenv.cfg
