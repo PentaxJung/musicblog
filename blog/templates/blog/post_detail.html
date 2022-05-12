@@ -54,10 +54,22 @@
                 {{ comment.author }}
                 {{ comment.text }}
                 {{ comment.created_date }}<br>
+                {% for reply in comment.replies.all %}
+                    {{ reply.author }}        
+                    {{ reply.text }}
+                    {{ reply.created_date }}<br>
+                {% endfor %}
+                <form method="POST" class="post_footer" style="display: inline-block;">
+                    {% csrf_token %}
+                    {{ comment_form.as_p }}
+                    <input type="hidden" name="parent_pk" value="{{ comment.pk }}">
+                    <button type="submit" class="mybtn btn-secondary btn-like">Reply</button>
+                </form><br>
             {% endfor %}
             <form method="POST" class="post_footer" style="display: inline-block;">
                 {% csrf_token %}
                 {{ comment_form.as_p }}
+                <input type="hidden" name="parent_pk" value="{{ comment.pk }}">
                 <button type="submit" class="mybtn btn-secondary btn-like">Comment</button>
             </form>
         </div>

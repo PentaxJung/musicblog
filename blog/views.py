@@ -6,10 +6,13 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
+from django.urls import reverse
 
 from .models import Post, Comment
 from .forms import PostForm, CustomUserCreationForm, CommentForm
+
 
 
 def post_list(request):
@@ -20,7 +23,13 @@ def post_list(request):
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     comments = post.comments.all()
+    
+    # Comment_new
     if request.method == "POST":
+        
+        parent_pk = request.POST.get('parent_pk')
+        print(parent_pk)
+        reply_of_parent = comments.filter(pk=parent_pk)
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
@@ -91,5 +100,5 @@ def likes(request, pk):
             post.like_users.remove(request.user)
         else:
             post.like_users.add(request.user)
-        return redirect('post_list')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return redirect('login')

@@ -29,7 +29,8 @@ class Post(models.Model):
 
 class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
     text = models.TextField(max_length=1000)
     created_date = models.DateTimeField(default=timezone.now)
     like_users = models.ManyToManyField(User, related_name='like_comments', blank=True, null=True)
+    parent = models.ForeignKey('self', related_name='replies', blank=True, null=True, on_delete=models.CASCADE)
