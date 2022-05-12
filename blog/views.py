@@ -12,8 +12,14 @@ from django.urls import reverse
 
 from .models import Post, Comment
 from .forms import PostForm, CustomUserCreationForm, CommentForm
+from .serializers import CommentSerializer
+from rest_framework import viewsets
 
 
+class blog_restful(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = ChildProcessError
+    
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
@@ -25,20 +31,24 @@ def post_detail(request, pk):
     comments = post.comments.all()
     
     # Comment_new
-    if request.method == "POST":
-        
-        parent_pk = request.POST.get('parent_pk')
-        print(parent_pk)
-        reply_of_parent = comments.filter(pk=parent_pk)
-        comment_form = CommentForm(request.POST)
-        if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            comment.author = request.user
-            comment.post = post
-            comment.created_date = timezone.now()
-            comment.save()
-    else:
-        comment_form = CommentForm()
+    
+    comment_form = CommentForm()
+    
+    if request.user.is_authenticated:
+        if request.method == "POST":
+
+            parent_pk = request.POST.get('parent_pk')
+            reply_of_parent = comments.filter(pk=parent_pk)
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.author = request.user
+                comment.post = post
+                comment.created_date = timezone.now()
+                comment.save()                
+
+            return redirect('login')
+    
     return render(request, 'blog/post_detail.html', {'post': post,
                                                      'comments': comments,
                                                      'comment_form': comment_form})

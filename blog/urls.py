@@ -1,7 +1,6 @@
 from django.urls import path
 from . import views
 
-
 urlpatterns = [
     path('', views.post_list, name='post_list'),
 
@@ -13,4 +12,5 @@ urlpatterns = [
     path('post/<int:pk>/delete/', views.post_delete, name='post_delete'),
 
     path('post/<int:pk>/likes/', views.likes, name='likes'),
+    
 ]
