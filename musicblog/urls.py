@@ -15,16 +15,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth import views
-from django.conf.urls import url
 from django.urls import include, path
 
+from django.conf.urls import url
+from rest_framework import routers
+from rest_framework_swagger.views import get_swagger_view
+
+import blog.api
+
+app_name = 'blog'
+
+router = routers.DefaultRouter()
+router.register('comments', blog.api.CommentViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('blog.urls')),
     path('accounts/login/', views.LoginView.as_view(), name='login'),
     path('accounts/logout/', views.LogoutView.as_view(), name='logout', kwargs={'next_page': '/'}),
     path('', include('blog.urls')),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-
+    
+    url(r'^api/doc', get_swagger_view(title='Rest API Document')),
+    url(r'^api/v1/', include((router.urls, 'blog'), namespace='api')),
+    
 ]

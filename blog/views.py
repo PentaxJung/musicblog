@@ -1,4 +1,3 @@
-from django.urls import reverse_lazy
 from django.views import generic
 from django.views.decorators.http import require_POST
 
@@ -7,19 +6,12 @@ from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from django.utils import timezone
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 from .models import Post, Comment
 from .forms import PostForm, CustomUserCreationForm, CommentForm
-from .serializers import CommentSerializer
-from rest_framework import viewsets
+from django.utils import timezone
 
-
-class blog_restful(viewsets.ModelViewSet):
-    queryset = Comment.objects.all()
-    serializer_class = ChildProcessError
-    
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')

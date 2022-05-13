@@ -1,4 +1,5 @@
-from django.urls import path
+from django.urls import path, include
+from django.conf.urls import url
 from . import views
 
 urlpatterns = [
@@ -12,5 +13,6 @@ urlpatterns = [
     path('post/<int:pk>/delete/', views.post_delete, name='post_delete'),
 
     path('post/<int:pk>/likes/', views.likes, name='likes'),
-    
+    path('auth/', include('rest_framework.urls', namespace='rest_framework')),
+
 ]
